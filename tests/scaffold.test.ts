@@ -92,6 +92,21 @@ describe('El Chasis - scaffolding de tipo CLI', () => {
     expect(readFileSync(join(DESTINO_PRUEBA, 'CLAUDE.md'), 'utf8')).toContain('proyecto-prueba');
   });
 
+  it('con un nombre tipo brief (prosa con espacios y puntuacion), falla con formato esperado y no crea nada', () => {
+    const nombreBrief =
+      'Generador de scaffolding para nuevos proyectos, con buenas prácticas ya instaladas: estructura y hooks.';
+
+    expect(() => crearProyecto(nombreBrief, 'cli', CARPETA_FIXTURES)).toThrow(/mi-proyecto/);
+    expect(existsSync(join(CARPETA_FIXTURES, nombreBrief))).toBe(false);
+  });
+
+  it('con un nombre de mas de 50 caracteres, falla aunque el formato sea valido', () => {
+    const nombreLargo = 'proyecto-' + 'a'.repeat(50);
+
+    expect(() => crearProyecto(nombreLargo, 'cli', CARPETA_FIXTURES)).toThrow(/50/);
+    expect(existsSync(join(CARPETA_FIXTURES, nombreLargo))).toBe(false);
+  });
+
   it('con un tipo de proyecto invalido, falla con mensaje claro y no crea nada', () => {
     expect(() =>
       crearProyecto('x', 'invalido' as any, CARPETA_FIXTURES)
