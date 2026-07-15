@@ -1,0 +1,21 @@
+{
+  "name": "el-chasis",
+  "version": "0.1.0",
+  "description": "Generador de scaffolding para nuevos proyectos con buenas practicas ya instaladas.",
+  "type": "module",
+  "bin": {
+    "el-chasis": "./dist/index.js"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "build": "tsc"
+  },
+  "license": "MIT",
+  "author": "Juan Carlos Caro (JuanIA-sketch)",
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.0",
+    "vitest": "^2.0.0"
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "_ayuda": "Copia propia del catálogo de El Freno de Mano (niveles critico y alto — los que disparan snapshot). Si El Freno de Mano está instalado, El Paracaídas puede leer su catálogo directamente vía la variable de entorno PARACAIDAS_CATALOGO para no mantener dos listas; este archivo es el respaldo cuando el Freno no está. Cada entrada: { patron: regex (insensible a mayúsculas por defecto), razon, sensibleMayusculas: true si aplica }.",
+
+  "critico": [
+    {
+      "patron": "\\brm\\s+(-[a-zA-Z]+\\s+)*([\"']?)(\\/\\*?|~\\/?|\\$HOME|\\*|\\.\\/?)\\2\\s*$",
+      "razon": "Borra el directorio actual, tu carpeta de usuario o el sistema completo."
+    },
+    {
+      "patron": "\\bmv\\s+[^|;&]+\\s+\\/dev\\/null",
+      "razon": "Manda archivos al agujero negro del sistema."
+    },
+    {
+      "patron": "\\bdd\\s+[^|;&]*\\bof=\\/dev\\/(sd[a-z]?|hd[a-z]?|nvme|disk)",
+      "razon": "Sobreescribe el disco físico directamente."
+    },
+    {
+      "patron": "\\bmkfs(\\.[a-z0-9]+)?\\s+[^|;&]*\\/dev\\/",
+      "razon": "Formatea un disco completo."
+    },
+    {
+      "patron": "Remove-Item(?=[^\\n]*-Recurse)(?=[^\\n]*-Force)[^\\n]*(\\s|[\"'])(C:[\\\\\\/]?|~|\\$HOME|\\$env:USERPROFILE|\\*|\\.)([\"']|\\s|$)",
+      "razon": "El rm -rf de Windows: borra recursivamente una ruta enorme sin preguntar."
+    },
+    {
+      "patron": "Format-Volume",
+      "razon": "Formatea un disco completo de Windows."
+    },
+    {
+      "patron": "Clear-Disk\\b[^\\n]*-RemoveData",
+      "razon": "Borra particiones y datos del disco."
+    },
+    {
+      "patron": "Remove-Partition\\b[^\\n]*-Confirm:\\s*\\$false",
+      "razon": "Elimina una partición entera sin preguntar."
+    },
+    {
+      "patron": "git\\s+push\\b(?=[^\\n]*(--force(?!-with-lease)\\b|\\s-f\\b))(?=[^\\n]*\\b(main|master)\\b)",
+      "razon": "Sobreescribe el historial remoto de main/master."
+    },
+    {
+      "patron": "\\bDROP\\s+(TABLE|DATABASE|SCHEMA)\\b",
+      "razon": "Borra una tabla o base de datos completa."
+    },
+    {
+      "patron": "\\bTRUNCATE\\s+TABLE\\b",
+      "razon": "Vacía todos los registros de una tabla."
+    },
+    {
+      "patron": "\\bDELETE\\s+FROM\\s+(?![^;\\n]*\\bWHERE\\b)[^;\\n]+",
+      "razon": "Borra TODAS las filas por no tener WHERE."
+    },
+    {
+      "patron": "\\bforge\\s+init\\b[^\\n]*--force",
+      "razon": "Puede sobreescribir un proyecto existente por completo — el incidente fundacional del Paracaídas."
+    },
+    {
+      "patron": "terraform\\s+(destroy\\b|apply\\s+[^\\n]*-destroy)",
+      "razon": "Elimina infraestructura real definida en Terraform."
+    },
+    {
+      "patron": "aws\\s+ec2\\s+(terminate-instances|delete-volume)\\b",
+      "razon": "Apaga y elimina servidores o discos reales en AWS."
+    },
+    {
+      "patron": "\\b(railway\\s+(down|delete)|doctl\\s+compute\\s+(droplet|volume)\\s+delete|gcloud\\s+compute\\s+(instances|disks)\\s+delete)\\b",
+      "razon": "Elimina infraestructura real en la nube."
+    }
+  ],
+
+  "alto": [
+    {
+      "patron": "chmod\\s+(-[a-zA-Z]+\\s+)*777\\s+[\"']?\\/[\"']?\\s*$",
+      "razon": "Abre los permisos de todo el sistema."
+    },
+    {
+      "patron": "\\bkill\\s+-9\\s+-1\\b",
+      "razon": "Mata casi todos tus procesos de golpe."
+    },
+    {
+      "patron": "\\b(curl|wget)\\b[^|\\n]*\\|\\s*(sudo\\s+)?(bash|sh|zsh)\\b",
+      "razon": "Descarga y ejecuta código de internet sin revisión."
+    },
+    {
+      "patron": "Remove-Item\\s+[^\\n]*Env:",
+      "razon": "Borra variables de entorno del sistema."
+    },
+    {
+      "patron": "(Win32_ShadowCopy|vssadmin\\s+delete\\s+shadows)",
+      "razon": "Elimina los puntos de restauración de Windows."
+    },
+    {
+      "patron": "git\\s+reset\\s+[^\\n]*--hard",
+      "razon": "Descarta permanentemente los cambios sin commit."
+    },
+    {
+      "patron": "git\\s+clean\\s+-[a-zA-Z]*f",
+      "razon": "Borra todos los archivos que git no rastrea."
+    },
+    {
+      "patron": "git\\s+push\\b(?=[^\\n]*(--force(?!-with-lease)\\b|\\s-f\\b))",
+      "razon": "Sobreescribe el historial remoto de la rama."
+    },
+    {
+      "patron": "supabase\\s+db\\s+reset",
+      "razon": "Resetea la base de datos desde las migraciones locales."
+    },
+    {
+      "patron": "\\bfind\\s+[^\\n]*-delete\\b",
+      "razon": "Borra archivos según un filtro fácil de escribir mal."
+    },
+    {
+      "patron": "git\\s+(checkout|restore)\\s+(--\\s+)?\\.\\s*$",
+      "razon": "Descarta TODOS tus cambios locales de golpe."
+    }
+  ]
+}
