@@ -2,16 +2,21 @@
 // instalador-un-clic/recetas/index.js: agregar un tipo nuevo = crear
 // su módulo y sumarlo acá. Nada más.
 
-import { cli } from './cli';
+import { cli } from './cli.js';
 
 export type TipoProyecto = 'cli' | 'n8n' | 'web';
+
+export interface ArchivoTemplate {
+  template: string; // ruta relativa dentro de src/templates/
+  destino: string; // ruta relativa dentro del proyecto generado
+}
 
 export interface TipoReceta {
   id: TipoProyecto;
   nombre: string;
   carpetas: string[];
   instalarHooks: boolean;
-  templateReadme: string;
+  archivos: ArchivoTemplate[];
 }
 
 export const recetas: TipoReceta[] = [cli];

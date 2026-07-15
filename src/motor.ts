@@ -5,8 +5,8 @@
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { instalarHooks } from './instalador-hooks';
-import type { TipoReceta } from './tipos/index';
+import { instalarHooks } from './instalador-hooks.js';
+import type { TipoReceta } from './tipos/index.js';
 
 const DIR_TEMPLATES = fileURLToPath(new URL('./templates/', import.meta.url));
 
@@ -39,10 +39,12 @@ export function ejecutarReceta(
     if (receta.instalarHooks) {
       rutasCreadas.push(...instalarHooks(raiz));
     }
-    const template = readFileSync(join(DIR_TEMPLATES, receta.templateReadme), 'utf8');
-    const rutaReadme = join(raiz, 'README.md');
-    writeFileSync(rutaReadme, template.replaceAll('{{nombre}}', nombre));
-    rutasCreadas.push(rutaReadme);
+    for (const archivo of receta.archivos) {
+      const template = readFileSync(join(DIR_TEMPLATES, archivo.template), 'utf8');
+      const ruta = join(raiz, archivo.destino);
+      writeFileSync(ruta, template.replaceAll('{{nombre}}', nombre));
+      rutasCreadas.push(ruta);
+    }
   } catch (error) {
     rmSync(raiz, { recursive: true, force: true });
     throw error;

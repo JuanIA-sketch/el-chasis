@@ -1,10 +1,10 @@
-import { buscarReceta, recetas } from './tipos/index';
-import { ejecutarReceta } from './motor';
-import type { TipoProyecto } from './tipos/index';
-import type { ResultadoScaffold } from './motor';
+import { buscarReceta, recetas } from './tipos/index.js';
+import { ejecutarReceta } from './motor.js';
+import type { TipoProyecto } from './tipos/index.js';
+import type { ResultadoScaffold } from './motor.js';
 
-export type { TipoProyecto, TipoReceta } from './tipos/index';
-export type { ResultadoScaffold } from './motor';
+export type { TipoProyecto, TipoReceta } from './tipos/index.js';
+export type { ResultadoScaffold } from './motor.js';
 
 /**
  * Crea la estructura de un nuevo proyecto segun su tipo.

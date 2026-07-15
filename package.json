@@ -4,12 +4,13 @@
   "description": "Generador de scaffolding para nuevos proyectos con buenas practicas ya instaladas.",
   "type": "module",
   "bin": {
-    "el-chasis": "./dist/index.js"
+    "el-chasis": "./bin/el-chasis.js"
   },
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
-    "build": "tsc"
+    "build": "tsc && node scripts/copiar-assets.mjs",
+    "prepare": "npm run build"
   },
   "license": "MIT",
   "author": "Juan Carlos Caro (JuanIA-sketch)",

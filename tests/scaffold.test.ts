@@ -58,6 +58,19 @@ describe('El Chasis - scaffolding de tipo CLI', () => {
     expect(readme).toContain('MIT');
   });
 
+  it('genera un CLAUDE.md con las convenciones del proyecto', () => {
+    crearProyecto('proyecto-prueba', 'cli', CARPETA_FIXTURES);
+
+    const rutaClaude = join(DESTINO_PRUEBA, 'CLAUDE.md');
+    expect(existsSync(rutaClaude)).toBe(true);
+
+    const claude = readFileSync(rutaClaude, 'utf8');
+    expect(claude).toContain('proyecto-prueba');
+    expect(claude).toContain('TDD');
+    expect(claude).toContain('Freno de Mano');
+    expect(claude).toContain('Paraca');
+  });
+
   it('con un tipo de proyecto invalido, falla con mensaje claro y no crea nada', () => {
     expect(() =>
       crearProyecto('x', 'invalido' as any, CARPETA_FIXTURES)
