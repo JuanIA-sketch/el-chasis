@@ -71,6 +71,27 @@ describe('El Chasis - scaffolding de tipo CLI', () => {
     expect(claude).toContain('Paraca');
   });
 
+  it('crea la estructura workflows/ y tests/fixtures/ para un proyecto tipo n8n', () => {
+    const resultado = crearProyecto('proyecto-prueba', 'n8n', CARPETA_FIXTURES);
+
+    expect(resultado.ok).toBe(true);
+    expect(existsSync(join(DESTINO_PRUEBA, 'workflows'))).toBe(true);
+    expect(existsSync(join(DESTINO_PRUEBA, 'tests', 'fixtures'))).toBe(true);
+    expect(readFileSync(join(DESTINO_PRUEBA, 'README.md'), 'utf8')).toContain('MIT');
+    expect(readFileSync(join(DESTINO_PRUEBA, 'CLAUDE.md'), 'utf8')).toContain('workflows');
+  });
+
+  it('crea la estructura src/, public/ y vite.config.ts para un proyecto tipo web', () => {
+    const resultado = crearProyecto('proyecto-prueba', 'web', CARPETA_FIXTURES);
+
+    expect(resultado.ok).toBe(true);
+    expect(existsSync(join(DESTINO_PRUEBA, 'src'))).toBe(true);
+    expect(existsSync(join(DESTINO_PRUEBA, 'public'))).toBe(true);
+    expect(existsSync(join(DESTINO_PRUEBA, 'vite.config.ts'))).toBe(true);
+    expect(readFileSync(join(DESTINO_PRUEBA, 'README.md'), 'utf8')).toContain('MIT');
+    expect(readFileSync(join(DESTINO_PRUEBA, 'CLAUDE.md'), 'utf8')).toContain('proyecto-prueba');
+  });
+
   it('con un tipo de proyecto invalido, falla con mensaje claro y no crea nada', () => {
     expect(() =>
       crearProyecto('x', 'invalido' as any, CARPETA_FIXTURES)

@@ -11,10 +11,10 @@ export interface UiWizard {
   preguntar: (prompt: string) => Promise<string>;
 }
 
-// Tipos del brief que todavía no están implementados: se anuncian en el
-// menú pero no se pueden elegir. Cuando un tipo se implementa, sale de
-// acá y entra al catálogo de src/tipos/.
-export const PROXIMAMENTE = ['Workflow n8n', 'Web/Vite'];
+// Tipos anunciados pero no implementados: aparecen en el menú sin ser
+// elegibles. Hoy está vacía (los 3 tipos del MVP ya existen); la v2 del
+// brief (Tauri, Python/Flask) vuelve a llenarla.
+export const PROXIMAMENTE: string[] = [];
 
 export function formatearMenuTipos(
   disponibles: TipoReceta[] = recetas,

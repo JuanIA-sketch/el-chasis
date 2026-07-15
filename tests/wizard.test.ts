@@ -34,11 +34,12 @@ describe('El Chasis - wizard interactivo', () => {
     }
   });
 
-  it('el menu numera cli, marca n8n/web como proximamente y cierra con salir', () => {
+  it('el menu ofrece los 3 tipos como elegibles y cierra con salir', () => {
     const menu = formatearMenuTipos();
     expect(menu).toMatch(/1\) CLI/);
-    expect(menu).toMatch(/n8n.*pr[oó]ximamente/i);
-    expect(menu).toMatch(/[Ww]eb.*pr[oó]ximamente/i);
+    expect(menu).toMatch(/2\) Workflow n8n/);
+    expect(menu).toMatch(/3\) Web\/Vite/);
+    expect(menu).not.toMatch(/pr[oó]ximamente/i);
     expect(menu).toMatch(/0\) Salir/);
   });
 
@@ -53,13 +54,21 @@ describe('El Chasis - wizard interactivo', () => {
     expect(salida).toContain('el-doctor');
   });
 
-  it('elegir una opcion proximamente avisa y vuelve a preguntar sin crear nada', async () => {
-    const { ui, mostrado } = uiFalsa(['2', '1', NOMBRE_PRUEBA]);
+  it('una opcion invalida avisa y vuelve a preguntar sin crear nada', async () => {
+    const { ui, mostrado } = uiFalsa(['9', '1', NOMBRE_PRUEBA]);
 
     await correrWizard(ui, CARPETA_FIXTURES);
 
-    expect(mostrado.join('\n')).toMatch(/pr[oó]ximamente/i);
+    expect(mostrado.join('\n')).toContain('no es una opción');
     expect(existsSync(join(DESTINO_PRUEBA, 'src'))).toBe(true);
+  });
+
+  it('elegir n8n en el menu crea un proyecto n8n', async () => {
+    const { ui } = uiFalsa(['2', NOMBRE_PRUEBA]);
+
+    await correrWizard(ui, CARPETA_FIXTURES);
+
+    expect(existsSync(join(DESTINO_PRUEBA, 'workflows'))).toBe(true);
   });
 
   it('con 0 sale sin crear nada', async () => {

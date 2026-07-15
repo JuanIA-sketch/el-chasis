@@ -6,11 +6,31 @@
   "bin": {
     "el-chasis": "./bin/el-chasis.js"
   },
+  "files": [
+    "bin",
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanIA-sketch/el-chasis.git"
+  },
+  "keywords": [
+    "scaffolding",
+    "claude-code",
+    "cli",
+    "n8n",
+    "vite",
+    "tdd"
+  ],
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
     "build": "tsc && node scripts/copiar-assets.mjs",
-    "prepare": "npm run build"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test"
   },
   "license": "MIT",
   "author": "Juan Carlos Caro (JuanIA-sketch)",

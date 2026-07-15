@@ -3,6 +3,8 @@
 // su módulo y sumarlo acá. Nada más.
 
 import { cli } from './cli.js';
+import { n8n } from './n8n.js';
+import { web } from './web.js';
 
 export type TipoProyecto = 'cli' | 'n8n' | 'web';
 
@@ -19,7 +21,7 @@ export interface TipoReceta {
   archivos: ArchivoTemplate[];
 }
 
-export const recetas: TipoReceta[] = [cli];
+export const recetas: TipoReceta[] = [cli, n8n, web];
 
 export function buscarReceta(tipo: string): TipoReceta | undefined {
   return recetas.find((receta) => receta.id === tipo);
