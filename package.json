@@ -4,7 +4,7 @@
   "description": "Generador de scaffolding para nuevos proyectos con buenas practicas ya instaladas.",
   "type": "module",
   "bin": {
-    "el-chasis": "./bin/el-chasis.js"
+    "el-chasis": "bin/el-chasis.js"
   },
   "files": [
     "bin",
